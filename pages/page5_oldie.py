@@ -1,6 +1,5 @@
 import streamlit as st
 import cv2
-import dlib
 import numpy as np
 import os
 from navigation import make_sidebar
@@ -53,8 +52,8 @@ st.write("Aplikasi ini mendeteksi kedip mata sebagai bukti **liveness**. Pastika
 script_dir = os.path.dirname(os.path.abspath(__file__))
 facial_landmark_file = os.path.join(script_dir, 'shape_predictor_68_face_landmarks.dat')
 
-detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor(facial_landmark_file)
+# detector = dlib.get_frontal_face_detector()
+# predictor = dlib.shape_predictor(facial_landmark_file)
 
 # @st.cache_resource
 # def get_camera():
@@ -146,26 +145,26 @@ if st.session_state.cam_active:
         # To read image file buffer with OpenCV:
         st.session_state.cam_active = False
         bytes_data = img_file_buffer.getvalue()
-        frame = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = detector(gray)
+        frame_crop = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
+        # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        # faces = detector(gray)
 
-        x1, y1, x2, y2 = 0, 0, frame.shape[1], frame.shape[0]
+        # x1, y1, x2, y2 = 0, 0, frame.shape[1], frame.shape[0]
 
-        if faces:
-            face = max(faces, key=lambda rect: rect.width() * rect.height())
-            x1 = max(0, face.left() - face.width() // 20)
-            y1 = max(0, face.top() - face.height() // 6)
-            x2 = min(frame.shape[1], face.right() + face.width() // 20)
-            y2 = min(frame.shape[0], face.bottom() + face.height() // 10)
+        # if faces:
+        #     face = max(faces, key=lambda rect: rect.width() * rect.height())
+        #     x1 = max(0, face.left() - face.width() // 20)
+        #     y1 = max(0, face.top() - face.height() // 6)
+        #     x2 = min(frame.shape[1], face.right() + face.width() // 20)
+        #     y2 = min(frame.shape[0], face.bottom() + face.height() // 10)
 
-            frame_crop = frame[int(y1):int(y2), int(x1):int(x2)]
+        #     frame_crop = frame[int(y1):int(y2), int(x1):int(x2)]
         
-        else:
-            st.session_state.cam_active = True
-            st.session_state.response_face = {"error": "Face not detected"}
-            st.error(f'An error occured1: {st.session_state.response_face["error"]}. Please retake', icon="🚨")
-            reset(super=True)
+        # else:
+        #     st.session_state.cam_active = True
+        #     st.session_state.response_face = {"error": "Face not detected"}
+        #     st.error(f'An error occured1: {st.session_state.response_face["error"]}. Please retake', icon="🚨")
+        #     reset(super=True)
 
     if 'frame_crop' in globals():
         if st.session_state.mode == "Face Order":
