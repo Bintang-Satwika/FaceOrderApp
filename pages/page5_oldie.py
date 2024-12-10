@@ -233,7 +233,7 @@ elif (not st.session_state.cam_active) and st.session_state.order:
         st.write(f"**Total: Rp.{total}**")
 
         if st.button("Place Order", type="primary"):
-            st.success("Your food is being cooked, wait and enjoy!")
+            st.success(f'Your food is being cooked, wait and enjoy!\nYour Order ID: {st.session_state.response_face["match_id"]}')
             st.balloons()
             id = st.session_state.response_face["match_id"]
             result = fb.log_menu(user, menu_array, id)
@@ -294,7 +294,7 @@ elif (not st.session_state.cam_active) and st.session_state.order:
                     })
                 
                 st.write(f"**Total: Rp.{total}**")
-                st.success("Your food is being cooked, wait and enjoy!")
+                st.success(f'Your food is being cooked, wait and enjoy!\nYour Order ID: {st.session_state.response_face["match_id"]}')
                 st.balloons()
 
                 if "menus2" not in st.session_state:
@@ -375,7 +375,7 @@ elif (not st.session_state.cam_active) and (not st.session_state.order):
                     })
                 
                 st.write(f"**Total: Rp.{total}**")
-                st.success("Successfully registered. Your food is being cooked, wait and enjoy!")
+                st.success(f'Successfully registered. Your food is being cooked, wait and enjoy!\nYour Order ID: {response.json()["new_id"]}')
                 st.balloons()
                 
                 result = fb.log_menu(user, menu_array, response.json()["new_id"])
