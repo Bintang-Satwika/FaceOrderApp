@@ -34,7 +34,8 @@ def check_login():
 # Panggil fungsi ini di awal halaman
 check_login()
 user = st.session_state.get('email')
-url = "https://namely-mint-calf.ngrok-free.app"
+# url = "https://namely-mint-calf.ngrok-free.app"
+url = "http://127.0.0.1:8000"
 
 hide_navigation_style = """
     <style>
