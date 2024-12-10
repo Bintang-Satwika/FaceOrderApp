@@ -7,7 +7,7 @@ charset-normalizer==3.4.0
 click==8.1.7
 colorama==0.4.6
 cmake
-dlib==19.22.1
+dlib==19.19.0
 gitdb==4.0.11
 GitPython==3.1.43
 idna==3.10
